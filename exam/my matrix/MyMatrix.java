@@ -48,8 +48,8 @@ public class MyMatrix<T> implements Matrix<T> {
       T nextMatrixValue;
 
       while ((nextMatrixValue = matrixEntries.get(new MatrixIndex(rowIndex, columnIndex))) == null)
-        traverseOne();
-      traverseOne();
+        traverseOne(); // skip null values, set 'next' to current value
+      traverseOne(); // move to next field
       returnedObjectsCount++;
       return nextMatrixValue;
     }
