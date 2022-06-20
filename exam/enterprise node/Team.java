@@ -29,7 +29,7 @@ public class Team extends AbstractEnterpriseUnit {
   }
 
   public SortedSet<StaffMember> getTeamMembers() {
-    TreeSet<StaffMember> sortedTeamMembers = new TreeSet<StaffMember>();
+    SortedSet<StaffMember> sortedTeamMembers = new TreeSet<StaffMember>();
     sortedTeamMembers.add(teamLeader);
     new StaffMemberIterator(teamLeader.getDirectSubordinates()).forEachRemaining(sortedTeamMembers::add);
     return sortedTeamMembers;

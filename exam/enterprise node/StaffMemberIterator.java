@@ -27,12 +27,13 @@ public class StaffMemberIterator implements EnterpriseNodeIterator<StaffMember> 
 
     for (StaffMember directSubordinate : directSubordinates)
       findSubordinatesRecursively(directSubordinate);
-    allMembersIterator = allMembers.iterator();
+    allMembersIterator = allMembers.iterator(); // Ensure to construct the iterator __after__ all elements have been
+                                                // added. Don't initialise at declaration but at bottom of constructor.
   }
 
   private void findSubordinatesRecursively(StaffMember m) {
     Objects.requireNonNull(m, "m must be non-null");
-    allMembers.add(m);
+    allMembers.add(m); // add the staffmember m itself before adding its subordinates.
     for (StaffMember directSubordinate : m.getDirectSubordinates()) {
       if (directSubordinate == null)
         continue;
