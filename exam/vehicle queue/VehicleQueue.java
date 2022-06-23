@@ -62,17 +62,13 @@ public class VehicleQueue implements ClockObserver {
     // 1. vehicles can always enter.
     DoubleStream.iterate(0d, d -> d <= currentTime, d -> Math.round(100 * (d + entryDelay)) / 100d)
         .filter(d -> d > lastTickTime)
-        .forEach(d -> {
-          System.err.println("vehicle entering at: " + d);
-          enter();
-        }); // vehicles can always enter every 'entryDelay' seconds.
+        .forEach(d -> enter()); // vehicles can always enter every 'entryDelay' seconds.
 
     // 2. let vehicles leave if there is (was) a green light only.
     if (greenLight) {
       final int lastLightChangeTime = IntStream.rangeClosed(0, lastTickTime)
           .filter(tick -> tick % trafficLightRate == 0)
           .max().orElse(0); // closed light change to lastTickTime to green light.
-      System.err.println("last light change time: " + lastLightChangeTime);
 
       DoubleStream
           .iterate(lastLightChangeTime, // starting from last light change to green.
@@ -80,11 +76,8 @@ public class VehicleQueue implements ClockObserver {
                                                                                     // (running into floating point
                                                                                     // precision problem)
           .filter(d -> d > lastTickTime)
-          .forEach(d -> {
-            System.err.println("vehicle leaving at: " + d);
-            leave();
-          }); // vehicles can always enter every 'entryDelay' seconds, starting at
-              // 'lastTickTime'!
+          .forEach(d -> leave()); // vehicles can always enter every 'entryDelay' seconds, starting at
+                                  // 'lastTickTime'!
     }
 
     // 3. change light __after__ letting vehicles leave (possibly).
