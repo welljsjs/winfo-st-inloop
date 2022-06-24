@@ -89,13 +89,12 @@ public class JIdea extends JContent {
     return getTitle().hashCode();
   }
 
-  // @Override
-  // public boolean equals(Object obj) {
-  // if (!(obj instanceof JIdea))
-  // throw new IllegalArgumentException("obj must be an instance of JIdea to
-  // compare");
-  // return getTitle().equals(((JIdea) obj).getTitle());
-  // }
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof JIdea))
+      throw new IllegalArgumentException("obj must be an instance of JIdea to compare");
+    return getTitle().equals(((JIdea) obj).getTitle());
+  }
 
   public abstract class JState {
     private String currentDiscussion;

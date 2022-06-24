@@ -32,8 +32,7 @@ public class JIdeaPool {
     Objects.requireNonNull(idea, "idea must be non-null");
     Objects.requireNonNull(topic, "topic must be non-null");
 
-    if (pool.values().stream().flatMap(Set::stream).filter(i -> idea.getTitle().equals(i.getTitle()) && idea != i)
-        .count() > 0)
+    if (pool.values().stream().flatMap(Set::stream).filter(i -> idea.equals(i) && idea != i).count() > 0)
       return;
     Set<JIdea> oldSet;
     if ((oldSet = pool.putIfAbsent(topic, new HashSet<JIdea>(Arrays.asList(idea)))) != null)
